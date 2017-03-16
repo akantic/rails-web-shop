@@ -1,24 +1,10 @@
-# README
+# Internetska prodavaonica mobilnih uređaja
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+	Proučiti i opisati organizaciju Internetskih prodavaonica, uočiti zajedničke i specifične elemente. Proučiti i 
+	opisati Ruby On Rails programski okvira za razvoj web-aplikacija u programskom jeziku Ruby. Oblikovati model baze 
+	podataka Internetske prodavaonice mobilnih uređaja. Koristeći RoR, napraviti web-aplikaciju koja će 
+	administratorima omogućiti upravljanje prodavaonicom (definiranje proizvoda, cijena, popusta i sl.), a korisnicima 
+	standardne mogućnosti koje nude Internetske prodavaonice (registracija, pretraživanje, košarica, kupovina, 
+	recenzije, itd.). U sklopu web-aplikacije napraviti izvještajni sustav za administratore koji će pružati osnovne 
+	izvještaje o prodaji i posjećenosti prodavaonice. Uz otisnuti primjerak rada priložiti optički disk s izgrađenom 
+	programskom potporom u izvornom i izvršnom obliku, te tekstom rada.
