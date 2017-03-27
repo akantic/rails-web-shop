@@ -7,6 +7,7 @@ end
 
 gem 'devise'
 gem 'rails_admin', '~> 1.1.1'
+gem 'bcrypt'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
@@ -50,6 +51,7 @@ end
 
 group :production do
   gem 'pg'
+
 end
 
 
