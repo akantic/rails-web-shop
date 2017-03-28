@@ -10,7 +10,88 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323082519) do
+ActiveRecord::Schema.define(version: 20170327205300) do
+
+  create_table "chipsets", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "display_resolutions", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "display_sizes", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "front_cameras", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_images", force: :cascade do |t|
+    t.string   "image"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_images_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name",                  default: "",                    null: false
+    t.string   "description",           default: "",                    null: false
+    t.integer  "price",                                                 null: false
+    t.datetime "release_date",          default: '2017-03-01 00:00:00', null: false
+    t.integer  "manufacturer_id"
+    t.integer  "chipset_id"
+    t.integer  "display_resolution_id"
+    t.integer  "display_size_id"
+    t.integer  "ram_id"
+    t.integer  "storage_id"
+    t.integer  "rear_camera_id"
+    t.integer  "front_camera_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.index ["chipset_id"], name: "index_products_on_chipset_id"
+    t.index ["display_resolution_id"], name: "index_products_on_display_resolution_id"
+    t.index ["display_size_id"], name: "index_products_on_display_size_id"
+    t.index ["front_camera_id"], name: "index_products_on_front_camera_id"
+    t.index ["manufacturer_id"], name: "index_products_on_manufacturer_id"
+    t.index ["ram_id"], name: "index_products_on_ram_id"
+    t.index ["rear_camera_id"], name: "index_products_on_rear_camera_id"
+    t.index ["storage_id"], name: "index_products_on_storage_id"
+  end
+
+  create_table "rams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rear_cameras", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "storages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

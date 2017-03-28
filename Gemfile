@@ -8,6 +8,9 @@ end
 gem 'devise'
 gem 'rails_admin', '~> 1.1.1'
 gem 'bcrypt'
+gem 'bootstrap-sass'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
