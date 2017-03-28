@@ -5,8 +5,8 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 /.idea
-/uploads
-
+/public/uploads
+/tmp
 # Ignore bundler config.
 /.bundle
 

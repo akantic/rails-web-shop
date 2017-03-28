@@ -1,0 +1,13 @@
+<div class="product" style="background-color: white;">
+  <div class="row">
+    <div class="pull-left" style="margin-right: 20px;">
+      <%= image_tag product.product_images.first.image.thumb.url %>
+    </div>
+    <h3> <%= product.manufacturer.name %> <%= product.name %> </h3>
+    <h5> Display: <%= product.display_size.name %> @ <%= product.display_resolution.name %> </h5>
+    <h5> Chipset: <%= product.chipset.name %> </h5>
+    <h5> Memory: <%= product.ram.name %> RAM, <%= product.storage.name %> Storage </h5>
+    <h5> Camera: <%= product.rear_camera.name %> Rear, <%= product.front_camera.name %> Front </h5>
+    <button class="btn btn-primary"> Add to cart </button>
+  </div>
+</div>
