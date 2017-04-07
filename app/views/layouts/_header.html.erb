@@ -12,8 +12,8 @@
               <% if current_user.is_admin %>
                   <li><%= link_to "Admin Dashboard", rails_admin_path %></li>
               <% else %>
-                  <li><%= link_to "My Orders", edit_user_registration_path %></li>
-                  <li><%= link_to "My Account", edit_user_registration_path %></li>
+                  <li><%= link_to "My Orders", '#' %></li>
+                  <li><%= link_to "My Account", '#' %></li>
               <% end %>
               <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
             </ul>
