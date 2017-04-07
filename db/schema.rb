@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20170327205300) do
     t.string   "name",                  default: "",                    null: false
     t.string   "description",           default: "",                    null: false
     t.integer  "price",                                                 null: false
-    t.datetime "release_date",          default: '2017-03-01 00:00:00', null: false
+    t.datetime "release_date",          default: '2017-04-01 00:00:00', null: false
     t.integer  "manufacturer_id"
     t.integer  "chipset_id"
     t.integer  "display_resolution_id"

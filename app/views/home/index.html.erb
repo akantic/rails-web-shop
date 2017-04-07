@@ -23,6 +23,10 @@
     <%= render @products %>
   </ul>
 </div>
+<div id="paginate">
+  <%= will_paginate @products %>
+</div>
+
 
 <script type="text/javascript">
   $(function() {

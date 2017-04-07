@@ -11,7 +11,8 @@ gem 'bcrypt'
 gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'mini_magick'
-
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'

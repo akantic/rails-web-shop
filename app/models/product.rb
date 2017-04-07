@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   belongs_to :storage
   belongs_to :rear_camera
   belongs_to :front_camera
+  self.per_page = 10
 
   scope :with_manufacturer, -> (manufacturer) { joins(:manufacturer).where('manufacturers.name' =>  manufacturer) }
   scope :with_chipset, -> (chipset) { joins(:chipset).where('chipsets.name' => chipset) }
