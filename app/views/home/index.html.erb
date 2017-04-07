@@ -1,8 +1,34 @@
 <% provide(:title, "Welcome!") %>
 <h1> Welcome! </h1>
 
-<ul class="products">
-  <%= render @products %>
-</ul>
+<div style="float: left">
+  <%= form_tag home_index_path, method: 'get', id: "product_filter" do %>
+      <% models = ["Manufacturer", "Chipset", "DisplayResolution", "DisplaySize", "Ram", "Storage", "RearCamera", "FrontCamera"] %>
+      <% models.each do |model| %>
+        <h4> <%= model %> </h4>
+          <% all = model.constantize.all %>
+          <% all.each do |each| %>
+              <li>
+                <% name = "with_" + model.underscore + "[]" %>
+                <%= check_box_tag name, each.name %> <%= each.name %>
+              </li>
+          <% end %>
+      <% end %>
 
+      <%= submit_tag "submit", :name => nil %>
+  <% end %>
+</div>
+<div>
+  <ul id="products">
+    <%= render @products %>
+  </ul>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('input[type=checkbox]').change(function() {
+        $.get($('#product_filter').attr('action'), $('#product_filter').serialize(), null, 'script');
+    });
+  });
+</script>
 
