@@ -1,4 +1,4 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top navbar-light">
   <div class="container">
     <%= link_to "Rails Web Shop", root_path, id: "logo" %>
     <nav>
@@ -22,6 +22,12 @@
           <li><%= link_to "Register", new_user_registration_path %> </li>
           <li><%= link_to "Log in", new_user_session_path %></li>
         <% end %>
+
+        <li>
+          <a href="#" id="cart">
+            <i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

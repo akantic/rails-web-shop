@@ -10,6 +10,12 @@
 
   <body>
     <%= render 'layouts/header' %>
+
+    <div class="container">
+      <div class="shopping-cart" style="display: none">
+        <%= render "carts/shopping_cart" %>
+      </div>
+    </div>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <div class="container">
@@ -17,3 +23,13 @@
     </div>
   </body>
 </html>
+
+<script>
+    (function(){
+        $("#cart").hover(function() {
+            $(".shopping-cart").fadeToggle("fast");
+            return false;
+        });
+
+    })();
+</script>

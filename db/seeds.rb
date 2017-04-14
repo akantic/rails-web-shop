@@ -6,12 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-  User.create(email: "admin@fer.hr", password:"123456", first_name:"Sample", last_name:"Admin", is_admin: true)
-  User.create(email: "user@fer.hr", password:"123456", first_name:"Sample", last_name:"User", is_admin: false)
+  User.create(email: "admin@fer.hr", password:"123456", first_name:"Marko", last_name:"Admin", is_admin: true)
+  User.create(email: "user@fer.hr", password:"123456", first_name:"Marko", last_name:"User", is_admin: false)
+
+  OrderStatus.delete_all
+  OrderStatus.create! id: 1, name: "In Progress"
+  OrderStatus.create! id: 2, name: "Placed"
+  OrderStatus.create! id: 3, name: "Shipped"
+  OrderStatus.create! id: 4, name: "Cancelled"
 
   names = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "Mi1", "Mi2", "Mi3", "M2", "Plus", "1", "2", "3", "4"]
 
-  manufacturers = ["Samsung", "OnePlus", "Apple", "Agrokor", "Xiaomi", "Meizu", "Kplus", "Kminus"]
+  manufacturers = ["Samsung", "OnePlus", "Apple", "Huawei", "Xiaomi", "Meizu", "HTC", "Xperia"]
   chipsets = ["Snapdragon 400", "Snapdragon 800", "Snapdragon 600", "Mediatek X10", "Mediatek X10", "Intel Atom X8300"]
   displayResolutions = ["1280x720", "1920x1080", "2160x1440", "960x640"]
   displaySizes = ["4.5''", "4.7''", "5.0''", "5.5''"]
@@ -32,27 +38,17 @@
   frontCameras.each { |x| FrontCamera.create(name: x) }
 
   99.times do |n|
-    manu = manufacturers.sample
-    name = names.sample
-    chipset = chipsets.sample
-    dispRes = displayResolutions.sample
-    dispSize = displaySizes.sample
-    ram = rams.sample
-    storage = storages.sample
-    rearCam = rearCameras.sample
-    frontCam = frontCameras.sample
-
     a = Product.create!(
-                 name:  name,
+                 name:  names.sample,
                  price: prices.sample,
-                 manufacturer: Manufacturer.find_by(name: manu),
-                 chipset: Chipset.find_by(name: chipset),
-                 display_resolution: DisplayResolution.find_by(name: dispRes),
-                 display_size: DisplaySize.find_by(name: dispSize),
-                 ram: Ram.find_by(name: ram),
-                 storage: Storage.find_by(name: storage),
-                 rear_camera: RearCamera.find_by(name: rearCam),
-                 front_camera: FrontCamera.find_by(name: frontCam)
+                 manufacturer: Manufacturer.find_by(name: manufacturers.sample),
+                 chipset: Chipset.find_by(name: chipsets.sample),
+                 display_resolution: DisplayResolution.find_by(name: displayResolutions.sample),
+                 display_size: DisplaySize.find_by(name: displaySizes.sample),
+                 ram: Ram.find_by(name: rams.sample),
+                 storage: Storage.find_by(name: storages.sample),
+                 rear_camera: RearCamera.find_by(name: rearCameras.sample),
+                 front_camera: FrontCamera.find_by(name: frontCameras.sample)
         )
 
     ProductImage.create!(product: a, image: File.open(File.join(Rails.root, "db/seed_images", images.sample)))

@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_many :product_images
+  has_many :order_products
   belongs_to :manufacturer
   belongs_to :chipset
   belongs_to :display_resolution

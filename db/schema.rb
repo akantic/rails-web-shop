@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327205300) do
+ActiveRecord::Schema.define(version: 20170413134333) do
 
   create_table "chipsets", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +42,32 @@ ActiveRecord::Schema.define(version: 20170327205300) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_products", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "order_id"
+    t.decimal  "product_price", precision: 12, scale: 3
+    t.integer  "quantity"
+    t.decimal  "total_price",   precision: 12, scale: 3
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["order_id"], name: "index_order_products_on_order_id"
+    t.index ["product_id"], name: "index_order_products_on_product_id"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal  "subtotal",        precision: 12, scale: 3
+    t.integer  "order_status_id"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+  end
+
   create_table "product_images", force: :cascade do |t|
     t.string   "image"
     t.integer  "product_id"
@@ -51,10 +77,10 @@ ActiveRecord::Schema.define(version: 20170327205300) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",                  default: "",                    null: false
-    t.string   "description",           default: "",                    null: false
-    t.integer  "price",                                                 null: false
-    t.datetime "release_date",          default: '2017-04-01 00:00:00', null: false
+    t.string   "name",                                           default: "",                    null: false
+    t.string   "description",                                    default: "",                    null: false
+    t.decimal  "price",                 precision: 12, scale: 3
+    t.datetime "release_date",                                   default: '2017-04-01 00:00:00', null: false
     t.integer  "manufacturer_id"
     t.integer  "chipset_id"
     t.integer  "display_resolution_id"
@@ -63,8 +89,8 @@ ActiveRecord::Schema.define(version: 20170327205300) do
     t.integer  "storage_id"
     t.integer  "rear_camera_id"
     t.integer  "front_camera_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                                     null: false
+    t.datetime "updated_at",                                                                     null: false
     t.index ["chipset_id"], name: "index_products_on_chipset_id"
     t.index ["display_resolution_id"], name: "index_products_on_display_resolution_id"
     t.index ["display_size_id"], name: "index_products_on_display_size_id"

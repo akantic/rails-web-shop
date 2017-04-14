@@ -5,6 +5,9 @@ class HomeController < ApplicationController
       @products = @products.public_send(key, value) if value.present?
     end
 
+    @order_product = current_order.order_products.new
+    @order_products = current_order.order_products
+
     @products = @products.paginate(page: params[:page])
   end
 
