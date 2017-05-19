@@ -1,0 +1,140 @@
+<div class="cont">
+  <div class="gallery">
+    <div class="thumbs">
+      <% @product_images.each_with_index do |image, i| %>
+        <% if i != 0 && i < 4%>
+          <div class="img">
+            <%= image_tag image.image.thumb.url, onclick: 'openModal(this)', dataId: i + 1%>
+           </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="main">
+      <%= image_tag @product_images.first.image.gallery_main.url, onclick: 'openModal(this)', dataId: 1 %>
+    </div>
+
+    <div class="thumbs-bottom">
+      <% @product_images.each_with_index do |image, i| %>
+        <% if i > 3 && i < 6 %>
+          <div class="img-bottom">
+            <%= image_tag image.image.thumb.url, onclick: 'openModal(this)', dataId: i + 1%>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="title">
+    <h1> <%= @product.manufacturer.name %> <%= @product.name %> </h1>
+  </div>
+
+  <div class="information">
+    <div class="basic">
+      <table>
+        <tr>
+          <th> Manufacturer </th>
+          <td> <%= @product.manufacturer.name %> </td>
+        </tr>
+        <tr>
+          <th> Model name </th>
+          <td> <%= @product.name %> </td>
+        </tr>
+        <tr>
+          <th> Release date </th>
+          <td> <%= @product.release_date.strftime("%Y-%m") %> </td>
+        </tr>
+        <tr>
+          <th> Chipset </th>
+          <td> <%= @product.chipset.name %> </td>
+        </tr>
+        <tr>
+          <th> Display </th>
+          <td> <%= @product.display_resolution.name %> @ <%= @product.display_size.name %> </td>
+        </tr>
+        <tr>
+          <th> Memory </th>
+          <td> <%= @product.ram.name %> RAM, <%= @product.storage.name %> Storage </td>
+        </tr>
+        <tr>
+          <th> Camera </th>
+          <td> <%= @product.rear_camera.name %> rear, <%= @product.front_camera.name %> front </td>
+        </tr>
+
+      </table>
+
+      <div class="add-to-cart">
+        <%= form_for current_order.order_products.new, remote: true do |f| %>
+            <h4 class="price">Product price:
+              <% unless @product.discount.nil? %>
+                <span style="text-decoration: line-through; color: red;"> <%= number_to_currency @product.price %> </span>
+              <% end %>
+              <span style="color: green"> <%= number_to_currency @product.cost %></span>
+            </h4>
+            <div class="input-group">
+              <div style="width: 58px">
+                <%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
+              </div>
+              <div class="input-group-btn pull-left">
+                <%= f.hidden_field :product_id, value: @product.id %>
+                <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+    </div>
+
+
+    <table class="details">
+      <tr>
+        <th> Details </th>
+      </tr>
+      <tr>
+        <td> <%= @product.description.html_safe %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div style="margin-top: 2em; font-size: 16px;"> <h3> Product reviews </h3> </div>
+<% if @reviews.blank? %>
+    <div style="margin-top: 1em; margin-left: 2em; font-size: 15px;">
+      Nobody left a review for this product yet!
+    </div>
+<% else %>
+<div class="reviews">
+  <%= render @reviews %>
+</div>
+<%end%>
+
+<div id="myModal" class="modal">
+  <span class="close cursor" onclick="closeModal()">&times;</span>
+  <div class="modal-content">
+
+    <% @product_images.each do |image| %>
+        <div class="mySlides">
+          <%= image_tag image.image.url%>
+        </div>
+    <% end %>
+
+    <a class="prevArrow" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="nextArrow" onclick="plusSlides(1)">&#10095;</a>
+
+  </div>
+</div>
+
+<script>
+  $(document).keyup(function(e) {
+      if ($(".mySlides").length) {
+          if (e.keyCode === 27)  // ESC
+              closeModal();
+          if (e.keyCode === 39)  // Right
+              plusSlides(1);
+          if (e.keyCode === 37) // Left
+              plusSlides(-1);
+      }
+  });
+</script>
+
+

@@ -1,12 +1,21 @@
 class OrderProductsController < ApplicationController
   def create
     @order = current_order
-    @order_product = @order.order_products.new(order_product_params)
+    @order_product = OrderProduct.new(order_product_params)
+    @order_products = @order.order_products
+
+    if @order_products.exists?(product_id: @order_product.product_id)
+      @order_products.where(product_id: @order_product.product_id).first
+          .increment!(:quantity, @order_product.quantity)
+    else
+      @order.order_products << @order_product
+    end
+
+    unless current_user.nil?
+      @order.user = current_user
+    end
+
     @order.save
-
-    puts @order.errors.inspect
-    puts @order_product.inspect
-
     session[:order_id] = @order.id
   end
 

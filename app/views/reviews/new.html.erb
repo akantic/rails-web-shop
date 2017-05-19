@@ -1,0 +1,38 @@
+<h3 style="margin-bottom: 3em"> Leave feedback for <%= @product.manufacturer.name %> <%= @product.name %> </h3>
+
+<div class="review-big-container">
+  <div class="img-feedback">
+      <%= image_tag @product.product_images.order(:img_order).first.image.thumb.url%>
+  </div>
+
+  <%= form_for @review, action: "create" do |f| %>
+    <div class="review-container">
+        <div style="margin: 1em;">
+          <span> Leave your rating and feedback below: </span>
+        </div>
+        <div class="stars">
+          <%= hidden_field_tag 'order_id', @order_id %>
+          <%= hidden_field_tag 'product_id', @product.id %>
+
+          <%= f.radio_button :rating, "5", checked: false, class: "star star-5" %>
+          <label class="star star-5" for="review_rating_5"></label>
+        <%= f.radio_button :rating, "4", checked: false, class: "star star-4" %>
+        <label class="star star-4" for="review_rating_4"></label>
+        <%= f.radio_button :rating, "3", checked: false, class: "star star-3" %>
+          <label class="star star-3" for="review_rating_3"></label>
+        <%= f.radio_button :rating, "2", checked: false, class: "star star-2" %>
+          <label class="star star-2" for="review_rating_2"></label>
+        <%= f.radio_button :rating, "1", checked: false, class: "star star-1" %>
+          <label class="star star-1" for="review_rating_1"></label>
+      </div>
+      <div>
+        <%= f.text_area :content, rows: 5, class: "content-area" %>
+      </div>
+      <div>
+        <%= f.submit "Create", class: "btn btn-primary pull-right", style: "margin: -1em"%>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

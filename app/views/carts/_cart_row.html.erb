@@ -1,18 +1,23 @@
-<li class="cart-product">
+<div class="cart-product">
+  <div class="cart-image">
   <%= image_tag product.product_images.first.image.cart_thumb.url %>
+  </div>
+  <div class="cart-details">
 
-  <span class="product-name"><%= product.manufacturer.name %> <%= product.name %></span>
+  <div class="product-name"><b> <%= product.manufacturer.name %> <%= product.name %> </b></div>
 
     <%= form_for order_product, remote: true do |f| %>
-      <span class="product-price"> Product price: <%= number_to_currency order_product.product_price %></span>
+        <div class="product-price"> Product price: <%= number_to_currency order_product.product_price %></div>
 
-      <span class="product-quantity"> <%= f.number_field :quantity, value: order_product.quantity.to_i, min: 1 %> </span>
-            <%= f.hidden_field :product_id, value: product.id %>
-
-            <div class="btn-group">
-              <%= link_to "Delete", order_product, { data: { confirm: "Are you sure you wish to delete the product '#{order_product.product.name}' from your cart?" }, method: :delete, remote: true } %>
-            </div>
-
-        <span>Total Price: <span><%= number_to_currency order_product.total_price %></span></span>
+        <div class="product-quantity"> Quantity: <%= order_product.quantity %> </div>
+              <%= f.hidden_field :product_id, value: product.id %>
+        <div class="product-subtotal">
+        <span>Subtotal <span style="color: green"><%= number_to_currency order_product.total_price %></span></span>
+        </div>
+              <div class="product-delete">
+                <%= link_to "Delete from cart", order_product, { data: { confirm: "Are you sure you wish to delete the product '#{order_product.product.name}' from your cart?" }, method: :delete, remote: true } %>
+              </div>
     <% end %>
-</li>
+  </div>
+
+</div>

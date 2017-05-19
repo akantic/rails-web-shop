@@ -1,38 +1,81 @@
 <% provide(:title, "Welcome!") %>
-
 <div class="filter-categories">
   <%= form_tag home_index_path, method: 'get', id: "product_filter" do %>
       <% models = ["Manufacturer", "Chipset", "DisplayResolution", "DisplaySize", "Ram", "Storage", "RearCamera", "FrontCamera"] %>
-      <% models.each do |model| %>
-        <h4> <%= model %> </h4>
-          <% all = model.constantize.all %>
-          <% all.each do |each| %>
-              <li>
-                <% name = "with_" + model.underscore + "[]" %>
-                <%= check_box_tag name, each.name %> <%= each.name %>
-              </li>
-          <% end %>
-      <% end %>
+      <div class="active-filters">
+        <% filtering_params(params).each do |param, value| %>
+          <% value.each do |val| %>
+                <%= hidden_field_tag param + '[]', val %>
 
-      <%= submit_tag "submit", :name => nil %>
+         <% end %>
+        <% end %>
+      </div>
+        <ul>
+        <% models.each do |model| %>
+            <div class="collapse-parent">
+              <div class="collapse-filter">
+                <li>
+                  <span> <%= model.underscore.humanize %> </span>
+                </li>
+              </div>
+            <% all = model.constantize.all %>
+              <%= content_tag :div, class: 'collapse-content', style: filtering_params(params)['with_' + model.underscore].blank? ? 'display: none' : 'display: block' do %>
+              <ul>
+              <% all.each do |each| %>
+                <li>
+                  <% name = "with_" + model.underscore + "[]" %>
+                  <div>
+
+                    <% active_filters = filtering_params(params)['with_' + model.underscore] %>
+                    <% if active_filters.nil? %>
+                        <%= check_box_tag name, each.name %> <%= each.name %>
+                    <% elsif active_filters.include?(each.name) %>
+                        <%= check_box_tag name, each.name, checked: 'true' %> <%= each.name %>
+                    <% else %>
+                        <%= check_box_tag name, each.name %> <%= each.name %>
+                  <% end %>
+                  </div>
+                </li>
+              <% end %>
+              </ul>
+              <%end %>
+            </div>
+        <% end %>
+        </ul>
   <% end %>
 </div>
 
-<div>
-  <ul id="products">
-    <%= render @products %>
-  </ul>
-</div>
+<ul id="products">
+  <%= render @products %>
+</ul>
+
 <div id="paginate">
   <%= will_paginate @products %>
 </div>
 
-
-<script type="text/javascript">
+<script>
   $(function() {
     $('input[type=checkbox]').change(function() {
+        if (!$(this).is(':checked')) {
+            var lf_value = $(this).attr('value');
+            $("input").filter(function () {
+                return this.value === lf_value && $(this).attr('type') === 'hidden';
+            }).remove();
+        }
         $.get($('#product_filter').attr('action'), $('#product_filter').serialize(), null, 'script');
     });
   });
 </script>
+
+<script>
+  $(function(){
+      $(".collapse-filter").on("click", function() {
+          var content = $(this).siblings('div');
+          content.slideToggle("fast");
+          return false;
+      });
+  });
+</script>
+
+
 

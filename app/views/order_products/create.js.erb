@@ -1,5 +1,2 @@
-<% if @order.errors.any? || @order_product.errors.any? %>
-  alert("not valid.");
-<% else %>
-  $(".cart-text").html("<%= escape_javascript(render 'layouts/cart_text') %>")
-<% end %>
+$("#shopping-cart").html("<%= escape_javascript(render 'carts/shopping_cart') %>");
+$("#product-count").html("<%= current_order.product_count %>");

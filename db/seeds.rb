@@ -13,7 +13,8 @@
   OrderStatus.create! id: 1, name: "In Progress"
   OrderStatus.create! id: 2, name: "Placed"
   OrderStatus.create! id: 3, name: "Shipped"
-  OrderStatus.create! id: 4, name: "Cancelled"
+  OrderStatus.create! id: 4, name: "Complete"
+  OrderStatus.create! id: 5, name: "Cancelled"
 
   names = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "Mi1", "Mi2", "Mi3", "M2", "Plus", "1", "2", "3", "4"]
 

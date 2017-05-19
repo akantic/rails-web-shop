@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_many :product_images
   has_many :order_products
+  has_one :discount
   belongs_to :manufacturer
   belongs_to :chipset
   belongs_to :display_resolution
@@ -20,4 +21,21 @@ class Product < ApplicationRecord
   scope :with_rear_camera, -> (rear_cam) { joins(:rear_camera).where('rear_cameras.name' => rear_cam) }
   scope :with_front_camera, -> (front_cam) { joins(:front_camera).where('front_cameras.name' => front_cam) }
 
+  def custom_label_method
+    if self.manufacturer.nil?
+      "New product"
+    else
+      "#{self.manufacturer.name} #{self.name}"
+    end
+  end
+
+  def cost
+    if self.discount.nil?
+      self.price
+    else
+      puts self.discount.percent / 100.0
+
+      self.price * ((100 - self.discount.percent) / 100.0)
+    end
+  end
 end

@@ -1,31 +1,24 @@
-<% if !@order_product.nil? && @order_product.errors.any? %>
-  <div class="alert alert-danger">
-    <ul>
-      <% @order_product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<ul class="shopping-cart-products">
-  <% if @order_products.size == 0 %>
-    <p class="text-center">
+<div class="cart-all">
+  <% if order_products.blank? %>
+    <div class="cart-text-empty">
       There are no items in your shopping cart.
-    </p>
+    </div>
   <% else %>
-
-    <% @order_products.each do |order_item| %>
+      <div  class="shopping-cart-products">
+    <% order_products.each do |order_item| %>
       <%= render 'carts/cart_row', product: order_item.product, order_product: order_item, show_total: true %>
     <% end %>
-  <% end %>
-  <li>
-    <div class="shopping-cart-header">
-      <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
-      <div class="shopping-cart-total">
-        <span class="lighter-text">Total:</span>
-        <span class="main-color-text">$2,229.97</span>
       </div>
-    </div>
-  </li>
-</ul>
+      <div class="shopping-cart-footer">
+        <div class="shopping-cart-total">
+          <span class="lighter-text">Total:</span>
+          <span style="color: green; font-weight:bold"> <%= number_to_currency current_order.total %></span>
+        </div>
+        <br>
+        <div class="shopping-cart-checkout">
+        <%= button_to 'Checkout', new_order_path, method: :get, class: "btn btn-primary" %>
+        </div>
+      </div>
+  <% end %>
+
+</div>

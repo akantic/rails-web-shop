@@ -1,0 +1,15 @@
+en:
+  admin:
+    actions:
+      dashboard:
+        title: "Orders to process"
+        menu: "Orders"
+        breadcrumb: "Home"
+      reviews:
+        title: "Negative reviews"
+        menu: "Reviews"
+        breadcrumb: "Please contact customers that have issues with our products."
+      stats:
+        title: "Statistics"
+        menu: "Stats"
+        breadcrumb: 'Stats'

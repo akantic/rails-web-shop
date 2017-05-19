@@ -11,25 +11,45 @@
   <body>
     <%= render 'layouts/header' %>
 
-    <div class="container">
-      <div class="shopping-cart" style="display: none">
+     <div id="shopping-cart">
         <%= render "carts/shopping_cart" %>
+     </div>
+
+    <% if controller.controller_name == 'home' && controller.action_name == 'index' %>
+      <div class="index-container">
+        <div style="margin-bottom: 1em">
+        <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+        </div>
+        <%= yield %>
       </div>
-    </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <% else %>
+      <div class="body-container">
+        <div style="margin-bottom: 1em">
+        <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>"><%= message %></div>
+          <% end %>
+        </div>
+        <%= yield %>
+      </div>
+    <% end %>
   </body>
 </html>
 
 <script>
     (function(){
-        $("#cart").hover(function() {
-            $(".shopping-cart").fadeToggle("fast");
+        $(".shop-cart").on('click', function() {
+            $("#shopping-cart").show();
+            $(document).mouseup(function(e) {
+                var $container = $("#shopping-cart");
+                // if the target of the click isn't the container nor a descendant of the container
+                if (!$container.is(e.target) && $container.has(e.target).length === 0) {
+                    $container.hide();
+                    $(document).off("mouseup");
+                }
+            });
             return false;
         });
-
     })();
 </script>

@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413134333) do
+ActiveRecord::Schema.define(version: 20170514000526) do
 
   create_table "chipsets", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
   create_table "display_resolutions", force: :cascade do |t|
@@ -61,18 +69,21 @@ ActiveRecord::Schema.define(version: 20170413134333) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "subtotal",        precision: 12, scale: 3
+    t.decimal  "total",           precision: 12, scale: 3
     t.integer  "order_status_id"
+    t.integer  "user_id"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "product_images", force: :cascade do |t|
     t.string   "image"
+    t.integer  "img_order",  default: 0, null: false
     t.integer  "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["product_id"], name: "index_product_images_on_product_id"
   end
 
@@ -80,7 +91,7 @@ ActiveRecord::Schema.define(version: 20170413134333) do
     t.string   "name",                                           default: "",                    null: false
     t.string   "description",                                    default: "",                    null: false
     t.decimal  "price",                 precision: 12, scale: 3
-    t.datetime "release_date",                                   default: '2017-04-01 00:00:00', null: false
+    t.datetime "release_date",                                   default: '2017-05-01 00:00:00', null: false
     t.integer  "manufacturer_id"
     t.integer  "chipset_id"
     t.integer  "display_resolution_id"
@@ -111,6 +122,15 @@ ActiveRecord::Schema.define(version: 20170413134333) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "order_product_id"
+    t.string   "content"
+    t.integer  "rating"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["order_product_id"], name: "index_reviews_on_order_product_id"
   end
 
   create_table "storages", force: :cascade do |t|

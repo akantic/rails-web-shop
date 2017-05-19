@@ -1,0 +1,18 @@
+.review {
+  margin: 1em 0;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  .star-rating-checked:before{
+    font-size: 18px;
+    content: '\f005';
+    color: #FD4;
+    font-family: FontAwesome;
+  }
+
+  .star-rating-unchecked:before{
+    font-size: 18px;
+    content: '\f005';
+    font-family: FontAwesome;
+  }
+}

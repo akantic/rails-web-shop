@@ -1,22 +1,60 @@
-<div class="product" style="background-color: white;">
+<div class="product">
   <div class="row">
-    <div class="pull-left" style="margin-right: 20px;">
+    <div class="img-index">
       <%= image_tag product.product_images.first.image.thumb.url %>
     </div>
-    <h3> <%= product.manufacturer.name %> <%= product.name %> </h3>
-    <h5> Display: <%= product.display_size.name %> @ <%= product.display_resolution.name %> </h5>
-    <h5> Chipset: <%= product.chipset.name %> </h5>
-    <h5> Memory: <%= product.ram.name %> RAM, <%= product.storage.name %> Storage </h5>
-    <h5> Camera: <%= product.rear_camera.name %> Rear, <%= product.front_camera.name %> Front </h5>
-    <%= form_for @order_product, remote: true do |f| %>
-        <h4 class="text-right">Unit Price: <span style="color: green"><%= number_to_currency product.price %></span></h4>
-        <div class="input-group">
-          <%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
-          <div class="input-group-btn">
-            <%= f.hidden_field :product_id, value: product.id %>
-            <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+    <div class="index-info">
+      <h3> <%= link_to product.manufacturer.name + ' ' + product.name, product_path(product) %> </h3>
+      <span> <b> Display: </b> <%= product.display_size.name %> @ <%= product.display_resolution.name %> </span>
+      <span> <b> Chipset: </b> <%= product.chipset.name %> </span>
+      <span> <b> Memory: </b> <%= product.ram.name %> RAM, <%= product.storage.name %> Storage </span>
+      <span> <b> Camera: </b> <%= product.rear_camera.name %> Rear, <%= product.front_camera.name %> Front </span>
+    </div>
+
+
+
+    <div class="index-add">
+
+      <% unless product.discount.nil? %>
+        <div class="discount-alert">
+          <div>
+            <span class="old-price-span">Old price: </span>
+            <span class="old-price"> <%= number_to_currency product.price %> </span>
+            <span class="discount-info"> -<%= product.discount.percent %>%!</span>
           </div>
         </div>
-    <% end %>
+      <% end %>
+
+      <%= form_for @order_product, remote: true do |f| %>
+          <span> Price per quantity</span>
+          <div class="index-all-quantities">
+          <div class="index-quantity"><%= content_tag :span, '1', newPrice: number_to_currency(product.cost) %></div>
+          <div class="index-quantity"><%= content_tag :span, '5', newPrice: number_to_currency(product.cost * 0.95) %> </div>
+          <div class="index-quantity"><%= content_tag :span, '10', newPrice: number_to_currency(product.cost * 0.90) %> </div>
+          <div class="index-quantity"><%= content_tag :span, '20', newPrice: number_to_currency(product.cost * 0.80) %> </div>
+          </div>
+          <span style="float: left;">Price: </span> <span id="quantity-discount" style="color: green"><%= number_to_currency product.cost %></span>
+          <div class="input-group">
+            <div style="width: 58px; float: left">
+              <%= f.number_field :quantity, value: 1, class: "form-control", min: 1 %>
+            </div>
+            <div class="input-group-btn pull-left">
+              <%= f.hidden_field :product_id, value: product.id %>
+              <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+            </div>
+          </div>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<script>
+    $(function() {
+        $(".index-quantity").on('click', function () {
+            $(this).siblings().css("border", "1px solid #b9bff8");
+            $(this).css("border", "1px solid red");
+            $(this).parent().parent().find('#quantity-discount').text($(this).children().attr('newPrice'));
+        });
+    });
+
+</script>

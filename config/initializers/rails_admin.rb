@@ -1,5 +1,4 @@
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Devise ==
@@ -12,6 +11,103 @@ RailsAdmin.config do |config|
     config.authorize_with do
       redirect_to main_app.root_path unless current_user.is_admin?
     end
+
+     config.model Product do
+
+       object_label_method do
+         :custom_label_method
+       end
+
+       edit do
+         field :name
+         field :manufacturer
+         field :price
+         field :description, :wysihtml5 do
+           config_options toolbar: { fa: true }, # use font-awesome instead of glyphicon
+                          html: true, # enables html editor
+                          parserRules: { tags: { p:1 } } # support for <p> in html mode
+         end
+         field :release_date
+         field :chipset
+         field :display_resolution
+         field :display_size
+         field :ram
+         field :storage
+         field :rear_camera
+         field :front_camera
+         field :product_images
+       end
+
+     config.model Order do
+       edit do
+         field :total
+         field :order_status
+         field :user
+         field :order_products
+       end
+     end
+
+     config.model User do
+       object_label_method do
+         :custom_label_method
+       end
+     end
+
+     config.model ProductImage do
+       object_label_method do
+         :custom_label_method
+       end
+     end
+   end
+
+   config.model 'Review' do
+     visible false
+   end
+
+   config.model 'ProductImage' do
+     visible false
+   end
+
+   config.model 'Chipset' do
+     visible false
+   end
+
+   config.model 'DisplayResolution' do
+     visible false
+   end
+
+   config.model 'DisplaySize' do
+     visible false
+   end
+
+   config.model 'FrontCamera' do
+     visible false
+   end
+
+   config.model 'RearCamera' do
+     visible false
+   end
+
+   config.model 'Manufacturer' do
+     visible false
+   end
+
+   config.model 'Ram' do
+     visible false
+   end
+
+   config.model 'Storage' do
+     visible false
+   end
+
+   config.model 'OrderProduct' do
+     visible false
+   end
+
+   config.model 'OrderStatus' do
+     visible false
+   end
+
 
   ## == Cancan ==
   # config.authorize_with :cancan
@@ -29,7 +125,13 @@ RailsAdmin.config do |config|
   # config.show_gravatar true
 
   config.actions do
-    dashboard                     # mandatory
+    require_relative '../../lib/rails_admin/config/actions/dashboard'
+    dashboard
+    require_relative '../../lib/rails_admin/config/actions/reviews'
+    reviews
+    require_relative '../../lib/rails_admin/config/actions/stats'
+    stats
+
     index                         # mandatory
     new
     export

@@ -1,23 +1,26 @@
 class Order < ApplicationRecord
   belongs_to :order_status
+  belongs_to :user, optional: true
   has_many :order_products
-  before_validation :set_order_status
-  before_save :update_subtotal
+  before_save :update_total
 
 
-  def subtotal
-    order_products.collect { |op| op.valid? ? (op.quantity * op.product_price) : 0 }.sum
+  def total
+    order_products.collect { |op| op.valid? ? op.total_price : 0 }.sum
+  end
+
+  def product_count
+    x = 0
+    order_products.each do |product|
+      x += product.quantity
+    end
+
+    return x
   end
 
   private
-    def set_order_status
-      puts "setting order status"
-      self.order_status_id = 1
-    end
-
-    def update_subtotal
-      puts "updating subtotall"
-      self[:subtotal] = subtotal
+    def update_total
+      self[:total] = total
     end
 
 end

@@ -1,0 +1,24 @@
+
+<table class="table table-bordered">
+  <thead>
+  <th> # </th>
+  <th> Time created </th>
+  <th> User </th>
+  <th> Rating </th>
+  <th> </th>
+  </thead>
+  <% @reviews.each_with_index do |review, i| %>
+      <tr>
+        <td> <%= i + 1 %> </td>
+        <td> <span> <%= review.created_at.strftime("%F %T") %> </span></td>
+        <td> <%= review.order_product.order.user.email %> </td>
+        <td> <%= review.rating %> </td>
+        <td>
+          <%= link_to 'Edit', rails_admin.edit_path(model_name: 'review', id: review.id) %>
+          /
+          <%= link_to 'Show', main_app.product_path(review.order_product.product.id) %>
+        </td>
+      </tr>
+  <% end %>
+</table>
+</div>

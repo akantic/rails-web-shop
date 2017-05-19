@@ -1,6 +1,7 @@
 class OrderProduct < ApplicationRecord
   belongs_to :product
   belongs_to :order
+  has_one :review
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :product_present
@@ -9,15 +10,21 @@ class OrderProduct < ApplicationRecord
   before_save :finalize
 
   def product_price
-    if persisted?
-      self[:product_price]
-    else
-      product.price
-    end
+      product.cost
   end
 
   def total_price
-    product_price * quantity
+    p = product_price * quantity
+
+    if quantity < 5
+      p
+    elsif quantity >= 5 && quantity < 10
+      p * 0.95
+    elsif quantity >= 10 && quantity < 20
+      p * 0.90
+    elsif quantity >= 20
+      p * 0.80
+    end
   end
 
   private

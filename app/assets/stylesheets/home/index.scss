@@ -1,0 +1,134 @@
+.filter-categories {
+  position: fixed;
+  overflow-y: auto;
+  height: 90%;
+  font-size: 14px;
+
+  ul {
+    list-style: none;
+  }
+}
+
+.index-container {
+  margin-top: 5em;
+}
+
+ul {
+  list-style:none;
+  padding-left: 1.5em;
+}
+
+.collapse-parent {
+  .collapse-filter {
+    font-weight: bold;
+    border: 1px solid #b9bff8;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    line-height: 30px;
+    width: 220px;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+    span {
+      vertical-align: middle;
+    }
+  }
+
+  .collapse-content {
+    border: 1px solid #b9bff8;
+    margin: 10px;
+    display: none;
+  }
+}
+
+#products {
+
+
+}
+
+div.product {
+  margin-left: 20em;
+  margin-right: auto;
+  margin-bottom: 15px;
+  width: 65%;
+  position: relative;
+
+  .index-all-quantities {
+
+    display: table;
+    border-spacing: 6px;
+
+    .index-quantity {
+      width: 2em;
+      height: 2em;
+      border: 1px solid #b9bff8;
+      background-color: #e4e7f8;
+      cursor: pointer;
+      vertical-align: middle;
+      text-align: center;
+      display: table-cell;
+      border-spacing: 10px;
+    }
+  }
+  .index-info {
+    float: left;
+    margin-top: 2em;
+  }
+
+  .index-add {
+    bottom: 15%;
+    right: 1%;
+    position: absolute;
+  }
+
+  .discount-alert {
+    .old-price {
+      text-decoration: line-through;
+      color: red;
+      text-decoration-color: black;
+    }
+    .old-price-span {
+      float: left;
+    }
+    .discount-info {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  }
+
+  span {
+    display: block;
+    padding: 4px;
+    font-size: 14px;
+  }
+
+  .row {
+
+    border-radius: 35px;
+    background: white;
+    height: 250px;
+  }
+
+  .img-index {
+    width: 200px;
+    float: left;
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+
+  }
+}
+
+#paginate {
+  width: 50%;
+  margin: auto;
+
+}

@@ -1,10 +1,13 @@
 class HomeController < ApplicationController
+  helper_method :filtering_params
+
   def index
     @products = Product.where(nil)
     filtering_params(params).each do |key, value|
       @products = @products.public_send(key, value) if value.present?
     end
 
+    @order = current_order
     @order_product = current_order.order_products.new
     @order_products = current_order.order_products
 

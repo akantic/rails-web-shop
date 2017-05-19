@@ -1,0 +1,10 @@
+<%= javascript_include_tag "Chart.bundle", 'chartkick' %>
+
+<h4> Orders last week </h4>
+<%= line_chart Order.where(order_status_id: 4).where('created_at > ?', 7.days.ago).group_by_day(:updated_at).count %>
+
+<h4> Orders last month </h4>
+<%= line_chart Order.where(order_status_id: 4).where('created_at > ?', 30.days.ago).group_by_day(:updated_at).count %>
+
+<h4> Top selling </h4>
+<%= column_chart OrderProduct.joins(:product).joins(:order).where(orders: { order_status_id: 4 }).group(:name).count %>
