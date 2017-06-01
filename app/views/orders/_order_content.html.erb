@@ -1,3 +1,4 @@
+<div class="order-table">
 <table class="table table-striped">
   <tr>
     <th> </th>
@@ -13,13 +14,17 @@
         <td> <%= image_tag order_product.product.product_images.first.image.cart_thumb.url %> </td>
         <td> <%= order_product.product.manufacturer.name %> </td>
         <td> <%= order_product.product.name %> </td>
-        <td> <%= order_product.product.cost %> </td>
+        <td> <%= order_product.product_price %> </td>
         <td> <%= order_product.quantity %> </td>
         <td> <%= order_product.total_price %> </td>
+        <% if @order.order_status.name == "Complete" %>
         <% if order_product.review.nil? %>
             <td> <%= link_to 'Leave', new_review_path('product_id': order_product.product.id, 'order_id': @order.id) %> </td>
         <% else %>
             <td> <%= link_to 'View', product_path(order_product.product.id) %> </td>
+        <% end %>
+        <% else %>
+          <td> Not available </td>
         <% end %>
       </tr>
   <% end %>
@@ -33,3 +38,4 @@
     <th></th>
   </tr>
 </table>
+</div>

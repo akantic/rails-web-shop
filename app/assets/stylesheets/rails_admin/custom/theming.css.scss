@@ -1,0 +1,13 @@
+ol.breadcrumb li:first-child {
+  display: none;
+}
+.breadcrumb > li + li:after {
+  content: "/ ";
+  padding: 0 5px;
+  color: #ccc;
+}
+
+.breadcrumb > li + li:before {
+  content: "";
+  padding: 0;
+}

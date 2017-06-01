@@ -35,7 +35,9 @@ RailsAdmin.config do |config|
          field :storage
          field :rear_camera
          field :front_camera
-         field :product_images
+         field :product_images, :simple_has_many do
+
+         end
        end
 
      config.model Order do
@@ -43,7 +45,9 @@ RailsAdmin.config do |config|
          field :total
          field :order_status
          field :user
-         field :order_products
+         field :order_products, :simple_has_many do
+
+         end
        end
      end
 
@@ -51,13 +55,38 @@ RailsAdmin.config do |config|
        object_label_method do
          :custom_label_method
        end
+
+       edit do
+         field :email
+         field :password
+         field :first_name
+         field :last_name
+         field :address
+         field :city
+         field :postal_code
+         field :country
+         field :is_admin
+         field :orders, :simple_has_many
+       end
      end
 
      config.model ProductImage do
        object_label_method do
          :custom_label_method
        end
+
+       edit do
+         field :image
+         field :img_order
+       end
      end
+
+     config.model OrderProduct do
+       object_label_method do
+         :custom_label_method
+       end
+     end
+
    end
 
    config.model 'Review' do
@@ -108,6 +137,10 @@ RailsAdmin.config do |config|
      visible false
    end
 
+   config.model 'Country' do
+     visible false
+   end
+
 
   ## == Cancan ==
   # config.authorize_with :cancan
@@ -127,6 +160,8 @@ RailsAdmin.config do |config|
   config.actions do
     require_relative '../../lib/rails_admin/config/actions/dashboard'
     dashboard
+    require_relative '../../lib/rails_admin/config/actions/shipped'
+    shipped
     require_relative '../../lib/rails_admin/config/actions/reviews'
     reviews
     require_relative '../../lib/rails_admin/config/actions/stats'

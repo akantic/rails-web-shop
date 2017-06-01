@@ -13,7 +13,7 @@ module RailsAdmin
 
         register_instance_option :controller do
           proc do
-            @orders = Order.all.where(order_status_id: 2).order(:updated_at)
+            @orders = Order.all.where(order_status_id: 2).order(:updated_at).reverse
 
             render @action.template_name, status: 200
           end
@@ -24,7 +24,7 @@ module RailsAdmin
         end
 
         register_instance_option :link_icon do
-          'icon-home'
+
         end
 
         register_instance_option :pjax do

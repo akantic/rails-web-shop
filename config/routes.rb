@@ -6,10 +6,17 @@ Rails.application.routes.draw do
   resources :products, only: [:show]
   resources :reviews, only: [:new, :create]
 
+  resources :charges
+
+  get 'about', to: 'home#about'
+  #get 'welcome', to: 'home#welcome'
+  get 'index', to: 'home#index'
+
+  root 'home#index'
+
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  get 'home/index'
-  root 'home#index'
 
 end

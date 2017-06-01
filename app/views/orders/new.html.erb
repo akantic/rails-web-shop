@@ -8,15 +8,17 @@
     <th> Price </th>
     <th> Quantity </th>
     <th> Subtotal </th>
+    <th></th>
   </tr>
   <% @order.order_products.each do |order_product| %>
       <tr>
         <td> <%= image_tag order_product.product.product_images.first.image.cart_thumb.url %> </td>
         <td> <%= order_product.product.manufacturer.name %> </td>
         <td> <%= order_product.product.name %> </td>
-        <td> <%= order_product.product.cost %> </td>
+        <td> <%= number_to_currency order_product.product.cost %> </td>
         <td> <%= order_product.quantity %> </td>
-        <td> <%= order_product.total_price %> </td>
+        <td> <%= number_to_currency order_product.total_price %> </td>
+        <td> <%= link_to "View", product_path(order_product.product) %></td>
       </tr>
   <% end %>
   <tr>
@@ -25,8 +27,30 @@
     <th></th>
     <th></th>
     <th>Total:</th>
-    <th> <%= @order.total %> </th>
+    <th> <%= number_to_currency @order.total %> </th>
+    <th></th>
   </tr>
 </table>
 
-<%= button_to 'Complete order', order_path(current_order), method: :put %>
+
+<%= form_tag charges_path do %>
+    <article>
+      <% if flash[:error].present? %>
+          <div id="error_explanation">
+            <p><%= flash[:error] %></p>
+          </div>
+      <% end %>
+    </article>
+    <%= hidden_field_tag "order_id", @order.id %>
+    <div class="pull-right">
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-email="<%= current_user.email %>"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-description="Rails shop purchase"
+              data-amount="<%= @order.total * 100 %>"
+              data-zip-code="true"
+              data-locale="auto"
+              >
+      </script>
+    </div>
+<% end %>

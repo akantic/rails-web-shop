@@ -1,13 +1,16 @@
 <% provide(:title, "Welcome!") %>
 <div class="filter-categories">
-  <%= form_tag home_index_path, method: 'get', id: "product_filter" do %>
+  <%= form_tag index_path, method: 'get', id: "product_filter" do %>
       <% models = ["Manufacturer", "Chipset", "DisplayResolution", "DisplaySize", "Ram", "Storage", "RearCamera", "FrontCamera"] %>
       <div class="active-filters">
         <% filtering_params(params).each do |param, value| %>
-          <% value.each do |val| %>
+            <% if param != "with_name" %>
+              <% value.each do |val| %>
                 <%= hidden_field_tag param + '[]', val %>
-
-         <% end %>
+              <% end %>
+            <% else %>
+              <%= hidden_field_tag param + '[]', value %>
+            <% end %>
         <% end %>
       </div>
         <ul>
@@ -48,6 +51,8 @@
 <ul id="products">
   <%= render @products %>
 </ul>
+
+<div style="height: 2em"></div>
 
 <div id="paginate">
   <%= will_paginate @products %>

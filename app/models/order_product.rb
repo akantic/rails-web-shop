@@ -9,8 +9,23 @@ class OrderProduct < ApplicationRecord
 
   before_save :finalize
 
+  def custom_label_method
+    "#{self.product.custom_label_method} x #{self.quantity}"
+  end
+
+  def quantity_mult(query)
+    hsh = {}
+    query.each do |ord_prod|
+      puts ord_prod
+    end
+  end
+
   def product_price
+    if order.order_status.name != "In Progress"
+      self[:product_price]
+    else
       product.cost
+    end
   end
 
   def total_price

@@ -1,4 +1,3 @@
-<h3> Placed orders </h3>
 <div class="admin-dash-table">
 <table class="table table-bordered">
   <thead>
@@ -11,7 +10,7 @@
   <% @orders.each_with_index do |order, i| %>
       <tr>
         <td> <%= order.id %> </td>
-        <% if order.updated_at < 2.days.ago %>
+        <% if order.updated_at < 10.days.ago %>
           <td> <span style="color: red"> <%= order.updated_at.strftime("%F %T") %> </span></td>
         <% else %>
           <td> <span> <%= order.updated_at.strftime("%F %T") %> </span> </td>

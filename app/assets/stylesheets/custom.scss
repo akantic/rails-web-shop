@@ -4,8 +4,14 @@
 $main-color: #6394F8;
 $light-text: #9bb0be;
 
+html {
+  position:relative;
+  min-height:100%;
+}
+
 body {
   background-color: #e4e7f8;
+  margin: 0 0 3em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -16,7 +22,14 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #ffffff;
   position: fixed;
   z-index: 50;
+  text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  .navbar-form.search {
+    float: right;
+    margin-left: 1em;
+  }
+
   ul {
     li {
       display: inline;
@@ -33,10 +46,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
 .body-container {
   margin-top: 6em;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5em;
   width: 90%;
 }
 
@@ -65,27 +80,33 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   z-index: 100;
   border: 1px solid #b9bff8;
-  background: white;
   width: 400px;
   max-height: 60%;
   border-radius: 3px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #e7eafb;
 
 
   .shopping-cart-products {
     font-size: 14px;
 
+
     .cart-product {
+      background: white;
+      border-radius: 10px;
+      width: 90%;
       display: table;
       margin: 20px;
       .cart-image {
         float: left;
-        background: #e4e7f8;
         border-radius: 8px;
         height: 90px;
         width: 90px;
 
         img {
+          top: 50%;
+          transform: translateY(-50%);
+          position: relative;
           height: auto;
           max-height: 80px;
           display: block;
@@ -104,6 +125,7 @@ h1, h2, h3, h4, h5, h6 {
   .cart-all {
     .cart-text-empty{
       text-align: center;
+      margin-top: 2em;
       min-height: 60px;
     }
     .shopping-cart-footer {
@@ -161,3 +183,48 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-top: 2em;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 3em;
+  width: 100%;
+  background: white;
+
+  .footer-text {
+    color: gray;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 1em;
+    position: relative;
+    float: left;
+    width: 33%;
+    text-align: center;
+  }
+
+  .footer-text:hover {
+    color: gray;
+  }
+}
+
+.about-page {
+  background: white;
+  padding: 2em;
+  border-radius: 2em;
+  font-size: 16px;
+
+  .about-title {
+  font-weight: bold;
+  font-size: 20px;
+  }
+
+  .about-content {
+    padding: 2em;
+  }
+
+  .about-footer{
+    float: right;
+  }
+}

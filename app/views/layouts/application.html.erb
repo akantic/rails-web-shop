@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:title) %> | Rails Web Shop </title>
+    <title> Rails Web Shop </title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -34,7 +34,20 @@
         <%= yield %>
       </div>
     <% end %>
+
+    <footer>
+      <div class="footer-text">
+        Powered by Ruby on Rails
+      </div>
+      <div class="footer-text">
+        <%= link_to "About this project", about_path %>
+      </div>
+      <div class="footer-text">
+        Fakultet elektrotehnike i računalstva 16/17
+      </div>
+    </footer>
   </body>
+
 </html>
 
 <script>

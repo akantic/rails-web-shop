@@ -14,13 +14,11 @@ class Order < ApplicationRecord
     order_products.each do |product|
       x += product.quantity
     end
-
-    return x
+    x
   end
 
   private
     def update_total
       self[:total] = total
     end
-
 end

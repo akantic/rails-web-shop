@@ -2,14 +2,18 @@ en:
   admin:
     actions:
       dashboard:
-        title: "Orders to process"
-        menu: "Orders"
+        title: "Placed Orders"
+        menu: "Placed"
         breadcrumb: "Home"
+      shipped:
+        title: "Shipped Orders"
+        menu: "Shipped"
+        breadcrumb: "none"
       reviews:
         title: "Negative reviews"
         menu: "Reviews"
         breadcrumb: "Please contact customers that have issues with our products."
       stats:
         title: "Statistics"
-        menu: "Stats"
+        menu: "Statistics"
         breadcrumb: 'Stats'

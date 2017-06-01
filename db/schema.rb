@@ -10,12 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514000526) do
+ActiveRecord::Schema.define(version: 20170523213940) do
 
   create_table "chipsets", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "discounts", force: :cascade do |t|
@@ -144,6 +148,10 @@ ActiveRecord::Schema.define(version: 20170514000526) do
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "first_name",             default: "",    null: false
     t.string   "last_name",              default: "",    null: false
+    t.string   "address",                default: ""
+    t.string   "city",                   default: ""
+    t.string   "postal_code",            default: ""
+    t.integer  "country_id"
     t.boolean  "is_admin",               default: false, null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -155,6 +163,7 @@ ActiveRecord::Schema.define(version: 20170514000526) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

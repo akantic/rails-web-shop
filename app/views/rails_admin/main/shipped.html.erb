@@ -1,0 +1,24 @@
+<div class="admin-dash-table">
+  <table class="table table-bordered">
+    <thead>
+    <th> ID </th>
+    <th> Time shipped </th>
+    <th> User </th>
+    <th> Total </th>
+    <th> </th>
+    </thead>
+    <% @orders.each_with_index do |order, i| %>
+        <tr>
+          <td> <%= order.id %> </td>
+          <% if order.updated_at < 10.days.ago %>
+              <td> <span style="color: red"> <%= order.updated_at.strftime("%F %T") %> </span></td>
+          <% else %>
+              <td> <span> <%= order.updated_at.strftime("%F %T") %> </span> </td>
+          <% end %>
+          <td> <%= order.user.email %> </td>
+          <td> <%= number_to_currency order.total %> </td>
+          <td> <%= link_to 'Edit', rails_admin.edit_path(model_name: 'order', id: order.id) %> </td>
+        </tr>
+    <% end %>
+  </table>
+</div>

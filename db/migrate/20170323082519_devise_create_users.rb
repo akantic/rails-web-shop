@@ -6,6 +6,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :encrypted_password, null: false, default: ""
       t.string :first_name,         null: false, default: ""
       t.string :last_name,          null: false, default: ""
+      t.string :address,  default: ""
+      t.string :city, default: ""
+      t.string :postal_code, default: ""
+
+      t.references :country, foreign_key: true
+
 
       t.boolean :is_admin,          null: false, default: false
 

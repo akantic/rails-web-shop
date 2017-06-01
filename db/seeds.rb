@@ -6,8 +6,24 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-  User.create(email: "admin@fer.hr", password:"123456", first_name:"Marko", last_name:"Admin", is_admin: true)
-  User.create(email: "user@fer.hr", password:"123456", first_name:"Marko", last_name:"User", is_admin: false)
+
+  open("db/seed_images/countries.txt") do |countries|
+    countries.read.each_line do |data|
+      code, country = data.chomp.split("|")
+      Country.create!(name: country)
+    end
+  end
+
+  User.create!(email: "admin@fer.hr", password:"123456", first_name:"Marko", last_name:"Admin", is_admin: true)
+  User.create!(email: "user@fer.hr", password:"123456",
+               first_name:"Marko", last_name:"User",
+               is_admin: false, country: Country.find(rand(242)))
+
+  20.times do |n|
+    User.create!(email: "user" + n.to_s + "@fer.hr", password: "123456",
+                 first_name:"Marko" + n.to_s, last_name:"User",
+                 is_admin: false, country: Country.find(rand(242)))
+  end
 
   OrderStatus.delete_all
   OrderStatus.create! id: 1, name: "In Progress"
@@ -19,7 +35,7 @@
   names = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "Mi1", "Mi2", "Mi3", "M2", "Plus", "1", "2", "3", "4"]
 
   manufacturers = ["Samsung", "OnePlus", "Apple", "Huawei", "Xiaomi", "Meizu", "HTC", "Xperia"]
-  chipsets = ["Snapdragon 400", "Snapdragon 800", "Snapdragon 600", "Mediatek X10", "Mediatek X10", "Intel Atom X8300"]
+  chipsets = ["Snapdragon 400", "Snapdragon 800", "Snapdragon 600", "Mediatek X10", "Mediatek X20", "Intel Atom X8300"]
   displayResolutions = ["1280x720", "1920x1080", "2160x1440", "960x640"]
   displaySizes = ["4.5''", "4.7''", "5.0''", "5.5''"]
   rams = ["1 GB", "2 GB", "3GB", "4 GB", "512 MB"]
@@ -38,7 +54,7 @@
   rearCameras.each { |x| RearCamera.create(name: x) }
   frontCameras.each { |x| FrontCamera.create(name: x) }
 
-  99.times do |n|
+  150.times do
     a = Product.create!(
                  name:  names.sample,
                  price: prices.sample,
@@ -53,5 +69,52 @@
         )
 
     ProductImage.create!(product: a, image: File.open(File.join(Rails.root, "db/seed_images", images.sample)))
+  end
 
+  50.times do
+    product = Product.find(rand(150) + 1)
+    if product.discount.nil?
+      discount = Discount.create!(
+          percent: rand(46) + 5,
+          product: product
+      )
+    end
+  end
+
+  150.times do
+    order = Order.new
+    order.user = User.find(rand(20) + 2)
+
+    ord_status = rand(10)
+    if ord_status < 1
+      order.order_status_id = 2
+    elsif ord_status == 4
+      order.order_status_id = 3
+    else
+      order.order_status_id = 4
+    end
+
+    created_at = rand(35)
+
+    ActiveRecord::Base.record_timestamps = false
+
+    order.created_at = created_at.days.ago
+    order.updated_at = created_at.days.ago
+    order.save!
+
+    different_products = rand(4) + 1
+
+    different_products.times do |n|
+      order_product = OrderProduct.new
+      product = Product.find(rand(150) + 1)
+      order_product.product = product
+      order_product.product_price = product.price
+      order_product.quantity = rand(3) + 1
+      order_product.order = order
+      order_product.created_at = created_at.days.ago
+      order_product.updated_at = created_at.days.ago
+      order_product.save!
+    end
+
+    ActiveRecord::Base.record_timestamps = true
   end

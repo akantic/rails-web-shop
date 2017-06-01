@@ -17,6 +17,8 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'font-awesome-rails'
 gem 'chartkick'
 gem 'groupdate'
+gem 'rails_admin_simple_has_many'
+gem 'stripe'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
