@@ -94,8 +94,9 @@ ActiveRecord::Schema.define(version: 20170523213940) do
   create_table "products", force: :cascade do |t|
     t.string   "name",                                           default: "",                    null: false
     t.string   "description",                                    default: "",                    null: false
+    t.string   "full_name",                                      default: "",                    null: false
     t.decimal  "price",                 precision: 12, scale: 3
-    t.datetime "release_date",                                   default: '2017-05-01 00:00:00', null: false
+    t.datetime "release_date",                                   default: '2017-06-01 00:00:00', null: false
     t.integer  "manufacturer_id"
     t.integer  "chipset_id"
     t.integer  "display_resolution_id"

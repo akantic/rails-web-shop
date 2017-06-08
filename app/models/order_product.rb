@@ -10,11 +10,10 @@ class OrderProduct < ApplicationRecord
   before_save :finalize
 
   def custom_label_method
-    "#{self.product.custom_label_method} x #{self.quantity}"
+    "#{self.product.full_name} x #{self.quantity}"
   end
 
   def quantity_mult(query)
-    hsh = {}
     query.each do |ord_prod|
       puts ord_prod
     end

@@ -15,8 +15,21 @@ RailsAdmin.config do |config|
      config.model Product do
 
        object_label_method do
-         :custom_label_method
+         :full_name
        end
+
+
+       list do
+         field :id
+         field :full_name
+         field :description
+         field :price
+       end
+
+       field :full_name do
+         searchable :full_name
+       end
+
 
        edit do
          field :name
@@ -166,6 +179,7 @@ RailsAdmin.config do |config|
     reviews
     require_relative '../../lib/rails_admin/config/actions/stats'
     stats
+    require_relative '../../lib/rails_admin/config/actions/myproducts'
 
     index                         # mandatory
     new
@@ -181,3 +195,4 @@ RailsAdmin.config do |config|
     # history_show
   end
 end
+

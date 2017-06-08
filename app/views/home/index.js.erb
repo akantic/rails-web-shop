@@ -1,2 +1,6 @@
+<% if @products.blank? %>
+$('#products').html('<h3 class="text-center" style="padding-top: 5em;"> There are no products that match your filtering. :( </h3>');
+<%else%>
 $('#products').html("<%= escape_javascript(render @products)%>");
+<%end%>
 $('#paginate').html("<%= escape_javascript(will_paginate @products) %>");

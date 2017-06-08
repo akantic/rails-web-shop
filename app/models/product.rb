@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  before_save :set_full_name
+
   has_many :product_images
   has_many :order_products
   has_one :discount
@@ -11,7 +13,8 @@ class Product < ApplicationRecord
   belongs_to :rear_camera
   belongs_to :front_camera
   self.per_page = 10
-#"lower(first_name || ' ' || last_name) LIKE ?", "%#{search.downcase}%")
+
+  scope :with_name_admin, -> (name) { joins(:manufacturer).where("products.name || ' ' || manufacturers.name || ' ' || products.name LIKE ?", "%#{name.downcase}%") }
   scope :with_name, -> (name) { joins(:manufacturer).where("products.name || ' ' || manufacturers.name || ' ' || products.name LIKE ?", "%#{name.downcase}%") }
   scope :with_manufacturer, -> (manufacturer) { joins(:manufacturer).where('manufacturers.name' =>  manufacturer) }
   scope :with_chipset, -> (chipset) { joins(:chipset).where('chipsets.name' => chipset) }
@@ -21,14 +24,6 @@ class Product < ApplicationRecord
   scope :with_storage, -> (storage) { joins(:storage).where('storages.name' => storage) }
   scope :with_rear_camera, -> (rear_cam) { joins(:rear_camera).where('rear_cameras.name' => rear_cam) }
   scope :with_front_camera, -> (front_cam) { joins(:front_camera).where('front_cameras.name' => front_cam) }
-
-  def custom_label_method
-    if self.manufacturer.nil?
-      "New product"
-    else
-      "#{self.manufacturer.name} #{self.name}"
-    end
-  end
 
   def full_name
     if self.manufacturer.nil?
@@ -42,9 +37,12 @@ class Product < ApplicationRecord
     if self.discount.nil?
       self.price
     else
-      puts self.discount.percent / 100.0
-
       self.price * ((100 - self.discount.percent) / 100.0)
     end
   end
+
+  private
+    def set_full_name
+      self.full_name = full_name
+    end
 end

@@ -3,6 +3,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
     create_table :products do |t|
       t.string    :name,               null: false, default: ""
       t.string    :description,        null: false, default: ""
+      t.string    :full_name,          null: false, default: ""
       t.decimal   :price, precision: 12, scale: 3
       t.datetime  :release_date,       null: false,
                   default: DateTime.new(Date.today.strftime("%Y").to_i, Date.today.strftime("%m").to_i)
