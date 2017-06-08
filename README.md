@@ -1,7 +1,5 @@
 # Internetska prodavaonica mobilnih uređaja
 
-Remote: https://rails-web-shop.herokuapp.com/
-
 Proučiti i opisati organizaciju Internetskih prodavaonica, uočiti zajedničke i specifične elemente. Proučiti i 
 opisati Ruby On Rails programski okvira za razvoj web-aplikacija u programskom jeziku Ruby. Oblikovati model baze 
 podataka Internetske prodavaonice mobilnih uređaja. Koristeći RoR, napraviti web-aplikaciju koja će 
