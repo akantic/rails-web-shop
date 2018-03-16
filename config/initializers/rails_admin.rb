@@ -52,6 +52,8 @@ RailsAdmin.config do |config|
 
          end
        end
+     end
+
 
      config.model Order do
        edit do
@@ -99,8 +101,6 @@ RailsAdmin.config do |config|
          :custom_label_method
        end
      end
-
-   end
 
    config.model 'Review' do
      visible false

@@ -10,7 +10,6 @@ class HomeController < ApplicationController
     @order = current_order
     @order_product = current_order.order_products.new
     @order_products = current_order.order_products
-
     @products = @products.paginate(page: params[:page])
   end
 

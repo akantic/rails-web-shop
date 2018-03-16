@@ -1,5 +1,4 @@
 .filter-categories {
-  position: fixed;
   overflow-y: auto;
   height: 80%;
   font-size: 14px;
@@ -48,10 +47,8 @@ ul {
 }
 
 div.product {
-  margin-left: 20em;
-  margin-right: auto;
   margin-bottom: 15px;
-  width: 65%;
+  width: 95%;
   position: relative;
 
   .index-all-quantities {

@@ -1,57 +1,58 @@
 <% provide(:title, "Welcome!") %>
-<div class="filter-categories">
-  <%= form_tag index_path, method: 'get', id: "product_filter" do %>
-      <% models = ["Manufacturer", "Chipset", "DisplayResolution", "DisplaySize", "Ram", "Storage", "RearCamera", "FrontCamera"] %>
-      <div class="active-filters">
-        <% filtering_params(params).each do |param, value| %>
-            <% if param != "with_name" %>
-              <% value.each do |val| %>
-                <%= hidden_field_tag param + '[]', val %>
+<div class="row">
+  <div class="filter-categories col-sm-3 col-md-3">
+    <%= form_tag index_path, method: 'get', id: "product_filter" do %>
+        <% models = ["Manufacturer", "Chipset", "DisplayResolution", "DisplaySize", "Ram", "Storage", "RearCamera", "FrontCamera"] %>
+        <div class="active-filters">
+          <% filtering_params(params).each do |param, value| %>
+              <% if param != "with_name" %>
+                <% value.each do |val| %>
+                  <%= hidden_field_tag param + '[]', val %>
+                <% end %>
+              <% else %>
+                <%= hidden_field_tag param + '[]', value %>
               <% end %>
-            <% else %>
-              <%= hidden_field_tag param + '[]', value %>
-            <% end %>
-        <% end %>
-      </div>
-        <ul>
-        <% models.each do |model| %>
-            <div class="collapse-parent">
-              <div class="collapse-filter">
-                <li>
-                  <span> <%= model.underscore.humanize %> </span>
-                </li>
+          <% end %>
+        </div>
+          <ul>
+          <% models.each do |model| %>
+              <div class="collapse-parent">
+                <div class="collapse-filter">
+                  <li>
+                    <span> <%= model.underscore.humanize %> </span>
+                  </li>
+                </div>
+              <% all = model.constantize.all %>
+                <%= content_tag :div, class: 'collapse-content', style: filtering_params(params)['with_' + model.underscore].blank? ? 'display: none' : 'display: block' do %>
+                <ul>
+                <% all.each do |each| %>
+                  <li>
+                    <% name = "with_" + model.underscore + "[]" %>
+                    <div>
+
+                      <% active_filters = filtering_params(params)['with_' + model.underscore] %>
+                      <% if active_filters.nil? %>
+                          <%= check_box_tag name, each.name %> <%= each.name %>
+                      <% elsif active_filters.include?(each.name) %>
+                          <%= check_box_tag name, each.name, checked: 'true' %> <%= each.name %>
+                      <% else %>
+                          <%= check_box_tag name, each.name %> <%= each.name %>
+                    <% end %>
+                    </div>
+                  </li>
+                <% end %>
+                </ul>
+                <%end %>
               </div>
-            <% all = model.constantize.all %>
-              <%= content_tag :div, class: 'collapse-content', style: filtering_params(params)['with_' + model.underscore].blank? ? 'display: none' : 'display: block' do %>
-              <ul>
-              <% all.each do |each| %>
-                <li>
-                  <% name = "with_" + model.underscore + "[]" %>
-                  <div>
+          <% end %>
+          </ul>
+    <% end %>
+  </div>
 
-                    <% active_filters = filtering_params(params)['with_' + model.underscore] %>
-                    <% if active_filters.nil? %>
-                        <%= check_box_tag name, each.name %> <%= each.name %>
-                    <% elsif active_filters.include?(each.name) %>
-                        <%= check_box_tag name, each.name, checked: 'true' %> <%= each.name %>
-                    <% else %>
-                        <%= check_box_tag name, each.name %> <%= each.name %>
-                  <% end %>
-                  </div>
-                </li>
-              <% end %>
-              </ul>
-              <%end %>
-            </div>
-        <% end %>
-        </ul>
-  <% end %>
+  <ul id="products" class="col-md-8">
+    <%= render @products %>
+  </ul>
 </div>
-
-<ul id="products">
-  <%= render @products %>
-</ul>
-
 <div style="height: 2em"></div>
 
 <div id="paginate">

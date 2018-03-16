@@ -13,15 +13,11 @@ class ApplicationController < ActionController::Base
           return last_order
         end
       end
-      Order.new(order_status_id: 1)
-    else
-      Order.new(order_status_id: 1)
     end
+    Order.new(order_status_id: 1)
   end
 
   def order_products
     current_order.order_products
   end
-
-
 end
