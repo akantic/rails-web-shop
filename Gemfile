@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'devise'
-gem 'rails_admin', '~> 1.1.1'
+gem 'rails_admin', '~> 1.3.0'
 gem 'bcrypt'
 gem 'bootstrap-sass'
 gem 'carrierwave'
