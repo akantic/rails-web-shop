@@ -1,3 +1,8 @@
+Smartphone webshop written in Rails, bachelor's thesis.
+
+Work experience: 0d
+Rails/Ruby experience: 0d
+
 # Internetska prodavaonica mobilnih uređaja
 
 Proučiti i opisati organizaciju Internetskih prodavaonica, uočiti zajedničke i specifične elemente. Proučiti i 
